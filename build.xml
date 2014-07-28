@@ -1,0 +1,34 @@
+<?xmll version="1.0"?>
+<project name="test" default="run">
+	<target name="clean">
+		<delete dir="bin" includes="*.class"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="bin"/>
+		<javac  srcdir="./src" destdir="./bin">
+			<classpath>
+             	<pathelement path="./ImageReader.jar"/>
+           	</classpath>
+		</javac>
+	</target>
+	
+	<target name="run" depends="compile">
+		<!--<exec command="java -classpath ./bin/:./gridworld.jar MyRunner "  failonerror="false"/> -->
+		<java classname = "Main" fork="true">
+			<classpath>
+				<pathelement path="./bin"/>
+				<pathelement path="./ImageReader.jar"/>
+			</classpath>
+		</java>
+	</target>
+	<target name="jar">
+		<jar jarfile="ImageReader2.jar" basedir="./bin">   
+            <manifest>  
+                <attribute name="Main-Class" value="Main" />  
+                <attribute name="Class-Path" value="./lib" />
+                <attribute name="Class-Path" value="./ImageReader.jar" />
+            </manifest>  
+        </jar>
+	</target>
+</project>
